@@ -1,0 +1,34 @@
+{
+  "name": "kiwi.io",
+  "version": "0.0.1",
+  "description": "A blockchain-based customer relationship management and sales platform that decentralizes and automates the merchant process, allowing for instant satisfaction of any commercial needs of customers and businesses alike.",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha --exit --delay 5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanmin42/kiwi.io.git"
+  },
+  "keywords": [
+    "blockchain",
+    "hyperledger",
+    "CRM",
+    "sales",
+    "finance",
+    "fintech"
+  ],
+  "author": "Ryan Min, Abhinav Chanda, Vishv Patel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryanmin42/kiwi.io/issues"
+  },
+  "homepage": "https://github.com/ryanmin42/kiwi.io#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "fabric-ca-client": "^1.0.8",
+    "fabric-client": "^1.0.8",
+    "node-pre-gyp": "^0.10.2"
+  }
+}
