@@ -4,6 +4,7 @@
   "description": "A blockchain-based customer relationship management and sales platform that decentralizes and automates the merchant process, allowing for instant satisfaction of any commercial needs of customers and businesses alike.",
   "main": "server.js",
   "scripts": {
+    "start": "cd src && node server.js",
     "test": "mocha --exit --delay 5000"
   },
   "repository": {
@@ -25,10 +26,15 @@
   },
   "homepage": "https://github.com/ryanmin42/kiwi.io#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "fabric-ca-client": "^1.0.8",
     "fabric-client": "^1.0.8",
-    "node-pre-gyp": "^0.10.2"
+    "grpc": "^1.12.4",
+    "node-pre-gyp": "^0.10.2",
+    "pg": "^7.4.3",
+    "vue": "^2.5.16"
   }
 }
