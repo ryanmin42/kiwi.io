@@ -26,10 +26,10 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderers
     command: orderer
     volumes:
-    - ../channel-artifacts/:/etc/hyperledger/configtx
-    - ../crypto-config/ordererOrganizations/kiwi.com/orderers/orderer.kiwi.com/:/etc/hyperledger/fabric/orderer
-    - ../crypto-config/peerOrganizations/org1.kiwi.com/peers/peer0.org1.kiwi.com/:/etc/hyperledger/fabric/peerOrg1
-    - ../crypto-config/peerOrganizations/org2.kiwi.com/peers/peer0.org2.kiwi.com/:/etc/hyperledger/fabric/peerOrg2
+    - ../channel/channel-artifacts/:/etc/hyperledger/configtx
+    - ../channel/crypto-config/ordererOrganizations/kiwi.com/orderers/orderer.kiwi.com/:/etc/hyperledger/fabric/orderer
+    - ../channel/crypto-config/peerOrganizations/org1.kiwi.com/peers/peer0.org1.kiwi.com/:/etc/hyperledger/fabric/peerOrg1
+    - ../channel/crypto-config/peerOrganizations/org2.kiwi.com/peers/peer0.org2.kiwi.com/:/etc/hyperledger/fabric/peerOrg2
     #- orderer.kiwi.com:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
@@ -45,7 +45,7 @@ services:
       - CORE_PEER_LOCALMSPID=Org1MSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/org1.kiwi.com/peers/peer0.org1.kiwi.com/:/etc/hyperledger/fabric/peer
+        - ../channel/crypto-config/peerOrganizations/org1.kiwi.com/peers/peer0.org1.kiwi.com/:/etc/hyperledger/fabric/peer
         #- peer0.org1.kiwi.com:/var/hyperledger/production
     ports:
       - 7051:7051
@@ -64,7 +64,7 @@ services:
       - CORE_PEER_LOCALMSPID=Org1MSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/org1.kiwi.com/peers/peer1.org1.kiwi.com/:/etc/hyperledger/fabric/peer
+        - ../channel/crypto-config/peerOrganizations/org1.kiwi.com/peers/peer1.org1.kiwi.com/:/etc/hyperledger/fabric/peer
        # - peer1.org1.kiwi.com:/var/hyperledger/production
 
     ports:
@@ -84,7 +84,7 @@ services:
       - CORE_PEER_LOCALMSPID=Org2MSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/org2.kiwi.com/peers/peer0.org2.kiwi.com/:/etc/hyperledger/fabric/peer
+        - ../channel/crypto-config/peerOrganizations/org2.kiwi.com/peers/peer0.org2.kiwi.com/:/etc/hyperledger/fabric/peer
        # - peer0.org2.kiwi.com:/var/hyperledger/production
     ports:
       - 9051:7051
@@ -103,7 +103,7 @@ services:
       - CORE_PEER_LOCALMSPID=Org2MSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/org2.kiwi.com/peers/peer1.org2.kiwi.com/:/etc/hyperledger/fabric/peer
+        - ../channel/crypto-config/peerOrganizations/org2.kiwi.com/peers/peer1.org2.kiwi.com/:/etc/hyperledger/fabric/peer
         #- peer1.org2.kiwi.com:/var/hyperledger/production
     ports:
       - 10051:7051
