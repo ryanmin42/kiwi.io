@@ -32,10 +32,15 @@
     "express": "^4.16.3",
     "fabric-ca-client": "^1.0.8",
     "fabric-client": "^1.0.8",
+<<<<<<< HEAD
+    "node-pre-gyp": "^0.10.2",
+    "npm": "^5.6.0"
+=======
     "grpc": "^1.12.4",
     "jsonwebtoken": "^8.3.0",
     "node-pre-gyp": "^0.10.2",
     "pg": "^7.4.3",
     "vue": "^2.5.16"
+>>>>>>> f1269912137770e2bc0c3d1b6eac813164135848
   }
 }
