@@ -33,6 +33,7 @@
     "fabric-ca-client": "^1.0.8",
     "fabric-client": "^1.0.8",
     "grpc": "^1.12.4",
+    "jsonwebtoken": "^8.3.0",
     "node-pre-gyp": "^0.10.2",
     "pg": "^7.4.3",
     "vue": "^2.5.16"

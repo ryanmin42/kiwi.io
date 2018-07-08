@@ -6,7 +6,7 @@
     <el-input placeholder="Email Address" v-model="email" @change="checkLength"></el-input>
     <el-input type="password" placeholder="Password" @change="checkLength" v-model="password"></el-input>
     <el-button v-on:click="authenticate" :disabled="inputDisabled" type="primary">Register</el-button>
-    <router-link tag="li" to="/">
+    <router-link tag="li" to="/login">
       <a>Login</a>
     </router-link>
   </div>
@@ -16,13 +16,18 @@
 import axios from 'axios';
 
 export default {
-  name: '',
+  name: 'register',
   data () {
     return {
       username: '',
       password: '',
       email: '',
       inputDisabled: true
+    }
+  },
+  beforeCreate: function () {
+    if (this.$session.exists()) {
+      this.$router.push('/dashboard');
     }
   },
   methods: {

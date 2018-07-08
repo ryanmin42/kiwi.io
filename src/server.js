@@ -5,6 +5,7 @@ const fs = require('fs');
 const cors = require('cors');
 
 let userAuth = require('./userAuth.js');
+let corporateClient = require('./corporateClient.js');
 
 const PORT = 3000;
 const app = express();
@@ -23,8 +24,8 @@ app.listen(PORT);
 //const fabricCert = require('fabric-ca-client');
 
 app.post('/login', function (req, res) {
-    userAuth.login(req.headers['authorization']).then(() => {
-        res.status(200).end();
+    userAuth.login(req.headers['authorization']).then((token) => {
+        res.json({'token': token}).end();
     }).catch((err) => {
         res.statusMessage = err.message;
         res.status(err.code).end();
@@ -38,4 +39,15 @@ app.post('/register', function(req, res) {
         res.statusMessage = err.message;
         res.status(err.code).end();
     });         
+});
+
+app.get('/init', function(req, res) {
+    console.log(req.get('Authorization'));
+    if(req.get('Authorization')) {
+        userAuth.getInfo(req.get('Authorization')).then((username) => {
+            res.json({'username':username}).end();
+        });
+    } else
+        res.status(401).end();
+    
 });

@@ -13,6 +13,7 @@
 
 <script>
 import axios from 'axios';
+import Vue from 'vue';
 
 export default {
   name: 'login',
@@ -20,6 +21,11 @@ export default {
     return {
       username: '',
       password: ''
+    }
+  },
+  beforeCreate: function () {
+    if (this.$session.exists()) {
+      this.$router.push('/dashboard');
     }
   },
   methods: {
@@ -33,17 +39,25 @@ export default {
        },
      })
     .then((response) => {
-     this.$notify({
-                title: 'Success',
-                message: "You have successfully logged in",
-                type: 'success',
+      if(response.data.token) {
+        this.$session.authToken = 'Bearer ' + response.data.token;
+        this.$session.start();
+        this.$session.set('jwt', response.data.token);
+        this.$router.push('/dashboard');
+      } else {
+        this.$notify({
+                title: 'Error',
+                message: 'Authorization Error. Try again',
+                type: 'error',
                 duration: 2000
             }); 
+      }
     })
     .catch((error) => {
+      console.log(error);
      this.$notify({
                 title: 'Error',
-                message: error.response.statusText,
+                message: 'rip',
                 type: 'error',
                 duration: 2000
             }); 

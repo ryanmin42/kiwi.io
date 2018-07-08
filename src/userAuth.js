@@ -4,6 +4,7 @@ process.env.PORT = '26257';
 const pg = require('pg');
 const bcrypt = require('bcryptjs');
 const UUID = require('uuid/v4');
+const jwt = require('jsonwebtoken');
 
 const params = {
     user: 'kiwiAdmin',
@@ -15,7 +16,6 @@ const params = {
 let pool = new pg.Pool(params);
 
 module.exports = {
-
     login: function(encoded) {
         let token = encoded.split(/\s+/).pop()||'',            
         auth = new Buffer.from(token, 'base64').toString().split(/:/),    
@@ -32,7 +32,7 @@ module.exports = {
                     reject(finished);
                 }
                 else {
-                    client.query("SELECT password FROM accounts WHERE username ='" + username + "';").then((res) => {
+                    client.query("SELECT * FROM accounts WHERE username ='" + username + "';").then((res) => {
                         if(res.rows === undefined || res.rows.length == 0) {
                             let finished = {
                                 code: 404,
@@ -41,7 +41,7 @@ module.exports = {
                             reject(finished);
                         } else {
                             if(bcrypt.compareSync(password, res.rows[0].password)) {
-                                resolve();
+                                resolve(res.rows[0].id); //CHANGE LATER PLS
                                 //generate tokens
                             } else {
                                 let finished = {
@@ -95,5 +95,38 @@ module.exports = {
                 }    
             });                          
         });    
+    },
+
+    getInfo: function(token) {
+        token = token.slice(7);
+        return new Promise((resolve, reject) => {
+            pool.connect(function (err, client, callback) {          
+                if (err) {
+                    let finished = {
+                        code: 500,
+                        message: "We are having trouble accessing your info. Please try again later."
+                    };
+                    reject(finished);
+                }
+                else {
+                    client.query("SELECT * FROM accounts WHERE id ='" + token + "';").then((res) => {
+                        if(!res) {
+                            let finished = {
+                                code: 500,
+                                message: "We are having trouble accessing your info. Please try again later."
+                            };
+                            reject(finished);
+                        }
+                        if(res.rows === undefined || res.rows.length == 0) {
+                            let finished = {
+                                code: 403,
+                                message: "The username was not found."
+                            };
+                        } else
+                            resolve(res.rows[0].username);
+                    });
+                }
+            });
+        });            
     }
 }
